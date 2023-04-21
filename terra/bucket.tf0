@@ -1,0 +1,34 @@
+
+# create temper-bucket WRITE service account
+resource "yandex_iam_service_account" "temper-bucket-writer-sa" {
+  name        = "temper-bucket-writing-service-account"
+  folder_id   = var.folder_id
+  description = "writer service account for S3"
+}
+# create static ACCESS KEY для temper-bucket WRITE SERVICE ACCOUNT
+resource "yandex_iam_service_account_static_access_key" "temper-bucket-write-static-key" {
+  service_account_id = yandex_iam_service_account.temper-bucket-writer-sa.id
+  description        = "Static Key for temper-bucket WRITE SA"
+}
+resource "yandex_resourcemanager_folder_iam_member" "temper-bucket-write-role" {
+  role      = "storage.uploader"
+  folder_id = var.folder_id
+  member   = "serviceAccount:${yandex_iam_service_account.temper-bucket-writer-sa.id}"
+}
+# create temper-bucket write function
+resource "yandex_function" "temper_write" {
+  name               = "temper-writer"
+  description        = "write temp humid ti bucket"
+  runtime            = "python37"
+  entrypoint         = "tabloid.write2bucket"
+  memory             = "256"
+  execution_timeout  = "110"
+  service_account_id = yandex_iam_service_account.temper-bucket-writer-sa.id
+  environment = {
+    AWS_ACCESS_KEY_ID     = yandex_iam_service_account_static_access_key.temper-bucket-write-static-key.access_key
+    AWS_SECRET_ACCESS_KEY = yandex_iam_service_account_static_access_key.temper-bucket-write-static-key.secret_key
+    AWS_DEFAULT_REGION    = var.compute-default-zone
+  }
+  user_hash = data.archive_file.lambda.output_base64sha256
+  content { zip_filename = "iot.zip" }
+}

@@ -1,0 +1,14 @@
+key*.*
+dostup*.*
+secret*.*
+ids.h
+*.log
+*.zip
+*.json
+*.exe
+*.backup*
+.terraform*
+terraform*
+*terraform/*
+libraries
+**/libraries/

@@ -1,0 +1,7 @@
+boto3==1.13.10
+botocore
+requests
+bs4 
+lxml
+#python-dateutil==2.8.1
+#pytz==2020.1
