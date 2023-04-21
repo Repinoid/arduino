@@ -20,5 +20,5 @@ variable "compute-default-zone" {
 
 variable "sensor_password" {
 	type = string
-	default = "Password7password"				# пароль минимум 14 символов, из 3х разных типов (верх-них регистр, цифры)
+	default = "Password7password"				# ВВЕДИТЕ СВОЙ пароль. Используется при передаче данных. Минимум 14 символов, из 3х разных типов (верх-них регистр, цифры)
 }
