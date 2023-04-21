@@ -5,7 +5,7 @@
 #include <string.h>
 
 #include "secrets.h"			// в этом файле задать login & password WiFi, MQTT password, SSL root certificate 
-#include "secret_ids.h"			// файл созданный терраформом с ID для датчика
+//#include "secret_ids.h"			// файл созданный терраформом с ID для датчика
 #include "DHT22_Sensor.h"
 
 BearSSL::WiFiClientSecure net;
@@ -28,7 +28,7 @@ void mqtt_connect()
     }
 
     Serial.print("\nMQTT connecting ");
-    while (!client.connect(MQTT_USER, MQTT_USER, MQTT_PASS))
+//    while (!client.connect(MQTT_USER, MQTT_USER, MQTT_PASS))
     {
         Serial.print(".");
         delay(1000);
@@ -51,7 +51,7 @@ void setup()
     Serial.println(); Serial.println();
     Serial.print("WiFi. Attempting to connect to SSID: ");
     Serial.print(ssid);
-    WiFi.hostname(MQTT_USER);
+//    WiFi.hostname(MQTT_USER);
     WiFi.mode(WIFI_STA);
     WiFi.begin(ssid, pass);                                        // connect to WiFi
     while (WiFi.status() != WL_CONNECTED)                          // waiting for connection loop
@@ -76,7 +76,7 @@ void setup()
     Serial.print("Current time: ");
     Serial.print(asctime(&timeinfo));
 // ============================================== SSL MQTT ======================================================
-  sprintf(MQTT_TOPIC, "$devices/%s/events", MQTT_USER) ; 
+//  sprintf(MQTT_TOPIC, "$devices/%s/events", MQTT_USER) ; 
   Serial.print("TOPIC >>>>> ") ;
   Serial.println(MQTT_TOPIC) ;
 	BearSSL::X509List cert(digicert);
