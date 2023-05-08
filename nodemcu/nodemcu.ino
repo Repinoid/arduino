@@ -5,7 +5,7 @@
 #include <string.h>
 
 #include "secrets.h"			// в этом файле задать login & password WiFi, MQTT password, SSL root certificate 
-//#include "secret_ids.h"			// файл созданный терраформом с ID для датчика
+#include "secret_ids.h"			// файл созданный терраформом с ID для датчика
 #include "DHT22_Sensor.h"
 
 BearSSL::WiFiClientSecure net;
