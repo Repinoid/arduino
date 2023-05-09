@@ -76,7 +76,7 @@ void setup()
     Serial.print("Current time: ");
     Serial.print(asctime(&timeinfo));
 // ============================================== SSL MQTT ======================================================
-//  sprintf(MQTT_TOPIC, "$devices/%s/events", MQTT_USER) ; 
+  sprintf(MQTT_TOPIC, "$devices/%s/events", MQTT_USER) ; 
   Serial.print("TOPIC >>>>> ") ;
   Serial.println(MQTT_TOPIC) ;
 	BearSSL::X509List cert(digicert);
